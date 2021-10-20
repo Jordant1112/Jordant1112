@@ -1,3 +1,32 @@
+What is git?
+Free and open source version control syste
+
+What is version Control?
+The management of changes to documents, computer programs, large websites, and other collections of information
+
+Terms 
+* Director -> Folder
+* Terminal or Command Line -> Interface for text commands
+* CLI -> Command Line Interface
+* cd -> Change Directory
+* Code Editor -> Word Processor for Writing Code
+* Repository -> Project, or the folder/place where your project is kept
+* Github -> A website to host your repository online
+
+Git Commands
+* clone -> Bring a repository that si hosted somewhere like Github into a folder on your local machine
+* add -> track your files and changes in Git
+* commit -> Save your files in Git
+* push -> upload Git commits to a remote repo, like Github
+* pull -> Download changes from remote repo to your local machine,  the opposite of push
+
+If a Mac user, it should be pre installed
+simply open terminal and  git --version
+
+## Use Visual studio code for code editor
+
+
+
 #####################################
 #####           Git Push         ####
 #####################################
@@ -44,13 +73,13 @@ will give you access of the project
 then cd 'file name' and commit changes
 
 * open 'file'.py and make changes
-* git status (it will show you the modified file)
+* git status (it will show you the modified file, untracked file)
 
 ##############
 need to add and commit and push the commit locally to remotely
 
 * git add .
-* git commit -m
+* git commit -m 'information for description'
 * git push -u origin master
 
 
