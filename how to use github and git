@@ -38,10 +38,48 @@ Move changes from GitHub to local repository
 
 Go to Settings -> Manage access -> invite a collaborator
 
+As a collaborator: 
+* git clone 'URL from github' 
+will give you access of the project
+then cd 'file name' and commit changes
+
+* open 'file'.py and make changes
+* git status (it will show you the modified file)
+
+##############
+need to add and commit and push the commit locally to remotely
+
+* git add .
+* git commit -m
+* git push -u origin master
 
 
+############################################################
+##### Contributing to a project                         ####
+############################################################
+
+## Fork
+Copy the project of others to be owned under my account
+after that we can clone it from the URL
+
+## add a readme.md file to the project 
+*echo 'sentences to be written into the readme file' > readme.md
+* ls
+* git add .
+* git commit -m 'added a readme file'
+
+check the remote
+* git remote -v
+* git push -u origin master
+You will see the modification in my account of that project copied
 
 
+## Pull Request
+If we want to make changes of the project owned by others, 
+after the commit to our github repository, we can click on   
+Pull request 
+
+## Merge
 
 
 
