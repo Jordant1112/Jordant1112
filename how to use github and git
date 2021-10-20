@@ -1,0 +1,47 @@
+#####################################
+#####           Git Push         ####
+#####################################
+Move changes from local repository to GitHub
+
+1). Go to Terminal, head to the specific destination of the project in git hub repository
+
+To browse what is in the repository:
+* ls (list the files)
+* git log --oneline  (shows you every commit made step by step)
+* git branch (the star is at the current working branch)   
+        for example:        Red_screen
+                            clock
+                           *master
+        it means we are working at the master branch
+        
+In order to move local repository to the remote repository, we first need to check if we create the remote repository already
+* git remote -v (to check if we created)
+* git remote add origin 'URL of the repository in github' (to point to a remote repository, origin here is the name of the pointer)
+use git remote -v to check if it is added
+
+In order to push the changes of repository to github
+* git push -u origin master (telling git to push all changes from master branch into the origin (remote repository))
+#### Refresh Github you will see the files in github repository
+
+
+
+
+#####################################
+#####           Git Pull         ####
+#####################################
+Move changes from GitHub to local repository
+* git pull origin master (origin and master were created previously)
+
+############################################################
+#####           Collaborating with team members         ####
+############################################################
+
+Go to Settings -> Manage access -> invite a collaborator
+
+
+
+
+
+
+
+
