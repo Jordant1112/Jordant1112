@@ -25,6 +25,9 @@ simply open terminal and  git --version
 
 ## Use Visual studio code for code editor
 
+Using SSH key to connect
+~ ssh-keygen -t rsa -b 4096 -C 'email addres of github'
+
 
 
 #####################################
@@ -111,4 +114,5 @@ Pull request
 ## Merge
 
 
+git checkout 'another branch' (ways to change working brance)
 
