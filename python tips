@@ -252,7 +252,7 @@ people = [
         'state': 'NC'
     }
 ]
-
+#### NOte: in the dictionary, the stats is sorted for itertools which is required in itertools
 person_group = itertools.groupby(people, get_state)
 
 copy1, copy2 = itertools.tee(person_group)
