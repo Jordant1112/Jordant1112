@@ -189,6 +189,16 @@ result = itertools.islice(range(10), 5)  ##v show you the first 5 items with sli
 
 
 
+selectors = [True, True, False, True]
+result = itertools.compress(letters, selectors)
+for item in result:
+  print(item)
+#### a , b, d  since c is false
+
+##it also has takewhile, dropwhile in itertools
+
+
+
 
 
 
