@@ -64,8 +64,58 @@ with open('test.txt', 'r') as f:
   file_contents = f.read()
   
 
+### Iterators and Iterables
 
-  
+a list is iterable
+nums = [1,2,3]
+for num in nums:
+  print(num)
+
+how can we tell a thing is iterable
+__iter__()
+print(dir(nums)) ###---> it would show '__iter__' in it means it is iterable
+print(next(nums)) ###---> 'list' is not an iterator
+
+i_nums = nums.__iter__()
+#or
+i_nums = iter(nums)
+print(i_nums)
+print(dir(i_nums))
+print(next(i_nums))   ## 1 if we do it again and it will show 2 again it will be 3
+
+class MyRange:
+    def __init__(self, start,end):
+        self.value = start
+        self.end = end
+    def __iter__(self):
+        return self
+    def __next__(self):
+        if self.value >= self.end:
+            raise StopIteration
+        current = self.value
+        self.value += 1
+        return current
+
+nums = MyRange(1,10)
+print(next(nums))   ## 1
+
+
+## Generators function can be not in a class
+def my_range(start, end):
+  current = start
+  while current < end:
+    yield current
+    current += 1
+nums = my_range(1,10)
+
+
+
+
+
+
+
+
+
   
   
   
