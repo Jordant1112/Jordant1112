@@ -1,0 +1,56 @@
+### Building app throught Django
+
+pip install django
+python -m django --version  ##check version
+
+django-admin
+##get a list of subcommand we will use startproject 
+django-admin startproject django_project
+
+cd django_project/    ##open up the project in the editor
+
+tree ##in command terminal to see the structure of the file
+
+## to access our site, go to terminal
+python manage.py runserver
+## it will give you a local url
+
+## stop running server
+ctrl + c
+
+
+#create blog app in our project
+python manage.py startapp blog
+
+tree ## print out project structure
+
+##open views.py
+from django.http import HttpResponse
+
+def home(request):
+  return HttpResponse('<h1>Blog Home</h1>')
+  
+def about(request):
+  return HttpResponse('<h1>Blog About</h1>')
+  
+
+  
+## create a urls.py in blog file
+from django.urls import path, include
+from . import views
+urlpatterns = [
+  path('', views.home, name = 'blog-home'),   ## homepage for ''
+  path('about/', views.about, name = 'blog-about'),
+]
+
+
+### urls.pyin django_project
+from django.urls import path, include
+urlpatterns = [
+  path('admin/', admin.site.urls),
+  path('blog/',include('blog.urls')),
+]
+
+## First check the url patterns in django_project for either admin/ or blog/, if it matches, pass the about string to blog url, 
+## path in about/ in url in blog has views.about and it is shown in about function for '<h1>Blog about<h1>'
+
