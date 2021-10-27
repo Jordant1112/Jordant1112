@@ -54,3 +54,154 @@ urlpatterns = [
 ## First check the url patterns in django_project for either admin/ or blog/, if it matches, pass the about string to blog url, 
 ## path in about/ in url in blog has views.about and it is shown in about function for '<h1>Blog about<h1>'
 
+
+## Template
+## create a template folder
+### blog -> templates -> blog -> template.html
+### in the second blog file create home.html, about.html
+
+#type html and tab it will show up the template
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <h1> Blog Home! </h1>
+</body>
+</html>
+## in the apps.py, there is a BlogConfig
+# Open the settings.py file in the django_project
+# add the BlogConfig in
+
+INSTALLED_APPS = [
+  'blog.apps.BlogConfig',
+  'django.contrib.admin'...
+]
+
+## in views.py
+from django.shortcuts import render
+from django.http import HttpResponse
+
+posts = [
+  {
+   'author ': 'CoreyMS', 
+   'title' : 'Blog Post 1',
+   'content' : 'First post content',
+   'Date_posted': 'August 27, 2018'
+  },
+  {
+   'author ': 'JD', 
+   'title' : 'Blog Post 2',
+   'content' : 'Second post content',
+   'Date_posted': 'August 28, 2018'
+  }
+]
+
+def home(request):
+  context = {
+    'posts': posts
+  }
+  return render(request, 'blog/home.html', context, {'title': 'about'})  ## pass the data into the template, title can also be passed in 
+  
+def about(request):
+  return render(request, 'blog/about.html')
+  
+ ## in the home.html now:
+<!DOCTYPE html>
+<html>
+<head>
+    {% if title %}
+      <title>Django Blog - {{title}} </title>
+    {% else %}
+      <title>Django Blog </title>
+    {% endif %}
+</head>
+<body>
+    #<h1> Blog Home! </h1>
+    {% for post in posts %}
+        <h1>{{ post.title }}</h1>
+        <p>By {{post.author}} on {{ post.date_posted }}</p>  ## paragraph
+        <p> {{post.content}} </p>
+    {% endfor %}
+</body>
+</html>
+
+## After the reload, we will see the update for the for loop we wrote
+  
+# We can also copy the templaate page to about.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <h1> About Page </h1>
+</body>
+</html>
+
+
+## Template inherent
+## create base.html in blog, deal with repeated code in template  (serve as parent page or base structure of our webpages)
+<!DOCTYPE html>
+<html>
+<head>
+    {% if title %}
+      <title>Django Blog - {{title}} </title>
+    {% else %}
+      <title>Django Blog </title>
+    {% endif %}
+</head>
+<body>
+    {% block content %}{% endblock %}
+</body>
+</html>
+
+###then in home.html we can leave the unique session 
+
+{% extends 'blog/base.html' %}
+{% block content %}
+    {% for post in posts %}
+        <h1>{{ post.title }}</h1>
+        <p>By {{post.author}} on {{ post.date_posted }}</p>  ## paragraph
+        <p> {{post.content}} </p>
+    {% endfor %}
+{% endblock content%} ## easier to keep track with specifying the block content
+
+## Use getbootstrap.com for starter template
+# https://getbootstrap.com/docs/4.0/getting-started/introduction/#starter-template
+## Simply copy from <head></head> to base.html
+## and <body></body>
+### margin changes will show up on webpages
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
