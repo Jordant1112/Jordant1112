@@ -199,8 +199,117 @@ def about(request):
 </html>
 
 
+### Admin Page
+## goto local website /admin page
+##in command to create user name
+python manage.py createsuperuser    ### OperationalError: no such table: auth_user
+
+python manage.py makemigrations
+## tells us no changes detected
+
+##inorder to apply the migration
+python manage.py migrate
+
+##then we can run the superuser command
+python manage.py createsuperuser
+##then it allows you to create username, email address, passowrd
 
 
+## database and migrations
+
+### ORM object relational mapper
+## open model.py file
+from django.db import models
+from django.utils import timezone
+from django.contrib.auth.models import User
+
+class Post(models.Model):
+    title = models.CharField(max_length = 100)
+    content = models.TextField()
+    date_posted = models.DateTimeField(default = timezone.now)
+    author = models.ForeignKey(User, on_delete = models.CASCADE) ## if user delete the post, then we also delete the post for on_delete
+
+# Then go to command line
+python manage.py makemigrations
+
+###shows migrations for 'blog': blog/migrations/0001_initial.py
+## open 0001_initial.py
+## we can see things we created in Class post
+
+
+python manage.py sqlmigrate blog 0001
+## it shows the SQL code for generating the tables
+python manage.py migrate
+## we get an ok status here
+
+python manage.py shell
+from blog.models import Post
+from django.contrib.auth.models import User
+User.object.all                        ## it returns all the users we have 
+User.object.first()    .last()    
+User.objects.filter(username = 'CoreyMS')   ## <QuerySet [<User: CoreyMS>]>
+User.objects.filter(username = 'CoreyMS').first()     ## <User: CoreyMS>
+user = User.objects.filter(username = 'CoreyMS').first()  
+user    ## ## <User: CoreyMS>
+user.id  # 1 
+user.pk # primary key 1
+user = User.objects.get(id=1)
+Post.objects.all()   ##<QuerySet []>
+post_1 = Post(title = 'blog 1', content = 'First Post COntent!', author = user)
+## we need to save post_1 
+post_1.save()
+Post.objects.all()   ##<QuerySet [<Post: Post object (1)>]>
+
+
+## Open models.py
+def __str__(self):
+  return self.title  ### the post.objects.al() will show like this after the def __str__ are setted <QuerySet [<Post: blog 1>]>
+
+python manage.py shell
+from blog.models import Post
+from django.contrib.auth.models import User
+Post.objects.all() 
+
+user.post_set.all() ## to read all the posts of the user
+user.post_set.create(title = 'blog 3', content = 'third post content')   ## to create a post for the user we preset
+
+exit()
+
+
+#open blog views.py
+from .models import Post
+#in def home(reques):
+#change    
+'posts': Post.objects.all()
+
+python.manage.py runserver
+## you will see the website with data in database rather than dummy data we set in post = [{...}{...}]
+
+Open admin.py
+admin.site.register(Post)
+## then it show up the blog information  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
 
 
