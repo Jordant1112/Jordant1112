@@ -291,6 +291,53 @@ admin.site.register(Post)
 
 
 
+### User Registration
+python manage.py startapp users
+## it creates the users folder in the editor
+#open settings.py add 'users.apps.UsersConfig', into INSTALLED_APPS
+
+
+#open views.py in users file
+from django.contrib.auth.forms import UserCreationForm
+
+
+def register(request):
+    form = UserCreationForm()
+    return render(request, 'users/register.html', {'form': form})
+    
+# new folder called template in users, intemplate folder create new folder users
+#create register.html here directly copy about.html's fomat code here
+{% extends 'blog/base.html' %}
+{% block content %}
+    <div class = 'content-section'>
+        <form method = 'POST'>
+            {% csrf_token %}
+            <fieldset class = 'form-group'>
+              <legend class = 'border-bottom mb-4'> Join Today </legend>
+              {{ form.as_p }}  ## run the form in paragraph type
+            <fieldset>
+            <div class= 'form-group'>
+              <button class = 'btn btn-outline-info' type = 'submit'> Sign up </button>
+            </div>
+        </form>
+        <div class = 'border-top pt-3'>
+            <small class='text-muted'> 
+                Already Have An Account ? <a class = 'ml-2' href = '#'> Sign in </a> 
+            </small>
+        </div>
+    </div>
+{% endblock content %}
+
+#open django project urls.py
+from users import views as user_views
+## in urlpatterns
+ = [
+  path('register/', user_views.register, name = 'register'),
+ ]
+ 
+ 
+ 
+
 
 
 
