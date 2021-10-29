@@ -400,9 +400,11 @@ ulrpatters = [
 
 # in settings.py
 LOGIN_REDIRECT_URL = 'blog_home'
+LOGIN_URL = 'login'
+
 
 ## views.py
-
+from django contrib.auth.decorators import login_required
 def register(request):
     if request.method == 'POST':
       form = UserREhosyerFpr,Form(request.POST)
@@ -429,12 +431,18 @@ def register(request):
 {% endblock content %}
 
 
+def profile(request):
+  return render(request, 'users/profile.html')
 
+## create profile.html in the users in the login.html
 
+{% extends 'blog/base.html' %}
+{% block content %}
+    <h1> {{user.username}} </h1>
+{% endblock content %}
 
-
-
-    
+@login_required ## decorator adds functionality into functions
+## add urlpatterns = [path('profile/', user_views.profile, name= 'profile')] 
 
 
 
