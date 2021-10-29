@@ -383,10 +383,50 @@ in the installed_apps
 
 
 
+###LOGIN AND LOGOUT SYSTEM
 
+in urls.py
+from django.contrib.auth import views as auth_views
 
+ulrpatters = [
+    path('login/', auth_views.LoginView.as_view(template_name = 'users/login.html'), name = 'login')
+    path('logout/', auth_views.LogoutView.as_view(template_name = 'users/logout.html'), name = 'logout')
+  ]
+## go to localhost.8000/login/
+## open user templates create login.html at where the register.html is paste register.html to login.html
+## change something legend to login, submit button to Login change already have an account to need an account, and sign up now, href = '{% url 'register' %}'
 
+## we also need to add profile to our account
 
+# in settings.py
+LOGIN_REDIRECT_URL = 'blog_home'
+
+## views.py
+
+def register(request):
+    if request.method == 'POST':
+      form = UserREhosyerFpr,Form(request.POST)
+      if form.is_valid():
+          form.save()
+          username = form.cleaned_data.get('username')
+          messages.success(request, f'Your account has been created! You are able to login')
+          return redirect('login')
+    else:
+      form = UserRegistrationForm()
+    return render(request, 'users/register.html', {'form': form})
+
+## for logout page:
+## open user templates create logout.html at where the register.html is paste register.html to logout.html
+
+{% extends 'blog/base.html' %}
+    <h2> You have been logged out </h2>
+    <div class = 'border-top pt-3'>
+        <small class='text-muted'> 
+            <a class = 'ml-2' href = '#'> Log In Again </a> 
+        </small>
+    </div>
+    
+{% endblock content %}
 
 
 
