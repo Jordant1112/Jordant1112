@@ -11,20 +11,56 @@ Step by Step guide
 ### TinyURL example
 
 # Goals and Requirements of the System
+
 Functional Requirements:
 Given a URL, our service should generate a shorter and unique alias of it. This is called a short link. This link should be short enough to be easily copied and pasted into applications.
 When users access a short link, our service should redirect them to the original link.
 Users should optionally be able to pick a custom short link for their URL.
 Links will expire after a standard default timespan. Users should be able to specify the expiration time.
-Non-Functional Requirements:
 
+Non-Functional Requirements:
 The system should be highly available. This is required because, if our service is down, all the URL redirections will start failing.
 URL redirection should happen in real-time with minimal latency.
 Shortened links should not be guessable (not predictable).
-Extended Requirements:
 
+
+Extended Requirements:
 Analytics; e.g., how many times a redirection happened?
 Our service should also be accessible through REST APIs by other services.
+
+
+#Capacity Estimation and Constraints
+
+Assuming 100:1 read and write ratio
+Traffic Estimation: 
+say 500 M new URL shrotenings permonth, 100:1 read/write ration:  100*500 M == 50 B
+QPS (queries Per Second) 500 M / (30 days * 24 hours * 3600 seconds) = ~200 URLs/s   for write
+100 * 200 URLs/s = 20k URLs/s for read
+
+Storage Estimation:
+Let’s assume we store every URL shortening request (and associated shortened link) for 5 years. 
+Since we expect to have 500M new URLs every month, the total number of objects we expect to store will be 30 billion:
+
+500 M * 5 Years * 12 Months = 30 B  if each is 500 bytes then the total storage --> 15 TB
+
+Bandwidth estimates:
+
+For write requests, since we expect 200 new URLs every second, total incoming data for our service will be 100KB per second:
+200 URLs/s * 500 bytes = 100 KB/s
+
+For read requests, since every second we expect ~20K URLs redirections, total outgoing data for our service would be 10MB per second
+20K * 500 bytes = 10 MB/s
+
+Memory estimates:
+
+
+
+
+
+
+
+
+
 
 
 
