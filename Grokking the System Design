@@ -8,6 +8,51 @@ Step by Step guide
 #7 Identifying and resolving bottlenecks
 
 
+Reasons for SQL:
+  1. Structured Data, 2. Strict Schema, 3. Relational data, 4. Need for complex joins, 
+  5. Transactions 6. Clear patterns for scaling, 7. More established: developers, community, code, tools, etc
+  8. Lookups by index are very fast
+
+Reasons for NoSQL:
+  1. Semi-structured data 2. Dynamic or flexible schema, 3. Non-relational data 4. No need for complex joins. 5. Store many TB or PB of data
+  6. Very data intensive workload 7. Very high throughput for IOPS
+  Sample data well-suited for NoSQL:
+    Rapid ingest of clickstream and log data
+    Leaderboard or scroing data
+    Temporary data, such as a shopping cart
+    Frequently accessed ('hot') tables
+    Metadat/ lookup tables
+
+High level differences between SQL and NoSQL
+
+Storage: SQL stores data in tables, where each row represents an entity, and each column represents a data point about that entity. For example,
+if we are stroing a car entity in a table, different columns could be 'color', 'make'. 'model', and so on.
+
+NoSQL data bases have different data storage models. The main ones are key-value, document, graph, and columnar.
+
+Schema: In SQL, each record conforms to a fixed schema, meaning the columns must be decided and chosen before data entry and each row must have data for each column.
+The schema can be altered later, but it involves modifying the whole database and going offline
+
+Whereas in NoSQl, schemas are dynamic. Columns can be added on the fly, and each 'row' (or equivalent) doesn't have to contain data for each column
+
+Querying: SQL databases uses SQL (structured query language) for defining and manipulating the data, which is very powerful. In NoSQL database, queries are focused on a collection 
+of documents. Sometimes it is also called UNQL (Unstructured Query Language) Different databases have different syntax for using UnQL
+
+Scalability： In most common situations, SQL DB are vertically scalable, by increasing the hardware (expensive). It is possible to scale a relational DB across multiple servers
+but it is challenging and time-consuming process.
+
+NoSQL DB is horizontally scalable, meaning we can add more servers easily in our NoSQL DB infrastructure to handle large traffic. 
+
+Reliability or ACID (Automicity, Consistency, Isolation, Durability): When it comes to data reliability and safe guarantee of performing transactions, SQL is the better bet.
+
+
+Polling VS. Push
+Problem with Pooling is that the client has to keep asking the server for any new data. As a result, a lot of responses are empty creating HTTP overhead 
+
+Websockets: full duplex. allows communication between both direction simultaneously over a single TCP connection. 
+
+
+
 ### TinyURL example
 
 # Goals and Requirements of the System
