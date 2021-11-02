@@ -168,8 +168,14 @@ This number would represent the partition in which we store our object.
 
 This approach can still lead to overloaded partitions, which can be solved using Consistent Hashing.
 
+### Cache
+### Load Balancer(LB)
+### Purging or DB cleanup
+### Telemetry
+### Security and Permissions
 
 
+### Designing Instagram
 
 
 
