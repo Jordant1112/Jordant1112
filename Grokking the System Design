@@ -98,6 +98,77 @@ For read requests, since every second we expect ~20K URLs redirections, total ou
 
 Memory estimates:
 
+If we want to cache some of the hot URLs, following 80-20 rule with 20% of URLS generate 80% of traffic, we need to cache these 20% hot URLS
+
+with 20K requests per second, 20K * 3600 seconds * 24 hours = ~ 1.7 Billion requests per day, then cache 20% of it would be 
+
+0.2 * 1.7 N * 500 bytes = ~ 170 GB
+NOTE: since there will be many duplicate requests (pof the same URL), the memory will be less than 170GB
+
+HIGH LEVEL ESTIMATES: ASSUMING 500 Million new URLs permonth and 100:1 read:write ratio.
+New URLS : 200/s
+URL redirections 20 K/s
+Incoming data: 100 KB/s
+Outgoing data: 10 MB/s
+Storage for 5 years: 15 TB
+Memory for cache: 170 GB
+
+####System APIs
+
+createURL(api_dev_key, original_url, custom_alias=None, user_name=None, expire_date = None)
+
+Parameters:
+api_dev_key (string): The API developer key of a registered account. This will be used to, among other things, throttle users based on their allocated quota.
+original_url (string): Original URL to be shortened.
+custom_alias (string): Optional custom key for the URL.
+user_name (string): Optional user name to be used in the encoding.
+expire_date (string): Optional expiration date for the shortened URL.
+
+deleteURL(api_dev_key, url_key) 
+
+Where “url_key” is a string representing the shortened URL to be retrieved; a successful deletion returns ‘URL Removed’.
+
+#### Databased Design
+We need to store billions of records.
+Each object we store is small (less than 1K).
+There are no relationships between records—other than storing which user created a URL.
+Our service is read-heavy.
+
+#### Basic System Design and Algorithm
+a. Encoding actual URL
+compute hash by MD5 or SHA 256 of the given URL. 
+Using base64 encoding, a 6 letters long key would result in 64^6 = ~68.7 billion possible strings.
+Using base64 encoding, an 8 letters long key would result in 64^8 = ~281 trillion possible strings.
+
+
+What are the different issues with our solution? We have the following couple of problems with our encoding scheme:
+
+If multiple users enter the same URL, they can get the same shortened URL, which is not acceptable.
+What if parts of the URL are URL-encoded? e.g., http://www.educative.io/distributed.php?id=design, 
+and http://www.educative.io/distributed.php%3Fid%3Ddesign are identical except for the URL encoding.
+
+b.generating keys offline
+Key Generation Service (KGS) and stroe it in key-DB
+
+KEy Db Size: 6 (characters per key) * 68.7B (unique keys) = 412 GB.
+
+#### Data Partitioning and Replication
+To scale out our DB, we need to partition it so that it can store information about billions of URLs. 
+Therefore, we need to develop a partitioning scheme that would divide and store our data into different DB servers.
+
+a. Range Based Partitioning which stores URL based on certain patterns i.e., starting with 'A', 'B'.
+The issue for this approach is that it can lead to unbalanced DB servers. 
+
+b. Hash-Based Partitioning: 
+In this scheme, we take a hash of the object we are storing. We then calculate which partition to use based upon the hash. 
+In our case, we can take the hash of the ‘key’ or the short link to determine the partition in which we store the data object.
+
+Our hashing function will randomly distribute URLs into different partitions (e.g., our hashing function can always map any ‘key’ to a number between [1…256]). 
+This number would represent the partition in which we store our object.
+
+This approach can still lead to overloaded partitions, which can be solved using Consistent Hashing.
+
+
 
 
 
