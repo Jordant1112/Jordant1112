@@ -192,6 +192,13 @@ The system should be highly reliable; any uploaded photo or video should never b
 Not in scope: Adding tags to photos, searching photos on tags, commenting on photos, tagging users to photos, who to follow, etc.
 
 
+### Some Design Considerations
+
+The system would be read-heavy, so we will focus on building a system that can retrieve photos quickly.
+
+Practically, users can upload as many photos as they like; therefore, efficient management of storage should be a crucial factor in designing this system.
+Low latency is expected while viewing photos.
+Data should be 100% reliable. If a user uploads a photo, the system will guarantee that it will never be lost.
 
 
 
