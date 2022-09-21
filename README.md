@@ -1,7 +1,7 @@
 - 👋 Hi, I’m @Jordant1112
-- 👀 I’m interested in coding and data science
-- 🌱 I’m currently learning quatitative psychology
-- 💞️ I’m looking to collaborate on 
+- 👀 I’m interested in coding and learning programming 
+- 🌱 I’m currently learning Java and Python 
+- 💞️ I’m working as an SDE 
 - 📫 How to reach me 
 
 <!---
